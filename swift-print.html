@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swift Print - Free Open Source Windows Browser to Printer Bridge</title>
+
+  <link rel="icon" type="image/x-icon" href="./swiftprint.ico">
+
+  <meta name="description" content="Swift Print is a free, lightweight, open-source Windows tray utility for browser-to-printer integration, ESC/POS workflows, receipts, labels, and local printing.">
+  <meta name="keywords" content="Swift Print, free printer bridge, open source printer bridge, lightweight printing utility, Windows printing, browser to printer, ESC/POS printing, receipt printing, local print API, thermal printer bridge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5f6c80;
+      --paper: #f6f8fb;
+      --surface: #ffffff;
+      --soft: #f7fbff;
+      --line: rgba(34, 107, 159, 0.16);
+      --blue: #226b9f;
+      --blue-dark: #174a72;
+      --green: #146b50;
+      --shadow: 0 18px 42px rgba(34, 107, 159, 0.12);
+      --radius: 8px;
+      --content: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-top: 72px;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--content));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: rgba(246, 248, 251, 0.92);
+      border-bottom: 1px solid rgba(34, 107, 159, 0.12);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      min-height: 72px;
+    }
+
+    .brand,
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(34, 107, 159, 0.18);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #334156;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .nav a:hover,
+    .portfolio-link:hover { color: var(--blue); }
+
+    .portfolio-link {
+      padding: 9px 12px;
+      color: var(--blue);
+      background: rgba(34, 107, 159, 0.08);
+      border: 1px solid rgba(34, 107, 159, 0.14);
+      border-radius: var(--radius);
+      white-space: nowrap;
+    }
+
+    .hero {
+      padding: 86px 0 78px;
+    }
+
+    .hero-shell {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-copy {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 36px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 99px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin: 0 auto 30px;
+      color: #334156;
+      font-size: clamp(1.08rem, 1.7vw, 1.28rem);
+      line-height: 1.55;
+    }
+
+    .keyword-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: -8px 0 30px;
+    }
+
+    .keyword-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 10px;
+      color: var(--blue-dark);
+      background: rgba(34, 107, 159, 0.08);
+      border: 1px solid rgba(34, 107, 159, 0.14);
+      border-radius: var(--radius);
+      font-size: 0.86rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .hero-actions,
+    .download-actions,
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid var(--blue);
+      border-radius: var(--radius);
+      font-weight: 800;
+      line-height: 1;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button.primary {
+      color: #ffffff;
+      background: var(--blue);
+      box-shadow: 0 14px 30px rgba(34, 107, 159, 0.22);
+    }
+
+    .button.secondary {
+      color: var(--blue);
+      background: #ffffff;
+    }
+
+
+    .download-split {
+      position: relative;
+      display: inline-flex;
+      align-items: stretch;
+      border-radius: var(--radius);
+      box-shadow: 0 14px 30px rgba(34, 107, 159, 0.22);
+    }
+
+    .download-split .button.primary {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: none;
+    }
+
+    .download-menu {
+      position: relative;
+    }
+
+    .download-menu summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      min-height: 44px;
+      height: 100%;
+      color: #ffffff;
+      background: var(--blue-dark);
+      border: 1px solid var(--blue);
+      border-left-color: rgba(255, 255, 255, 0.24);
+      border-top-right-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 900;
+      list-style: none;
+      transition: background 0.2s ease;
+    }
+
+    .download-menu summary::-webkit-details-marker { display: none; }
+    .download-menu summary:hover { background: #103d60; }
+
+    .download-menu-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 10;
+      min-width: 240px;
+      padding: 8px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .download-menu-panel a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 11px;
+      color: var(--ink);
+      border-radius: 7px;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .download-menu-panel a:hover {
+      color: var(--blue);
+      background: rgba(34, 107, 159, 0.08);
+    }
+
+    section { padding: 58px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .card,
+    .flow-step,
+    .feature,
+    .case {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(34, 107, 159, 0.08);
+    }
+
+    .flow-grid,
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .flow-step,
+    .case,
+    .feature { padding: 22px; }
+
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 18px;
+      color: #ffffff;
+      background: var(--blue);
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .flow-step h3,
+    .feature h3,
+    .case h3 {
+      margin-bottom: 8px;
+      font-size: 1.16rem;
+      line-height: 1.25;
+    }
+
+    .flow-step p,
+    .feature p,
+    .case p { color: var(--muted); margin-bottom: 0; }
+
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .guide-card {
+      position: relative;
+      padding: 24px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(34, 107, 159, 0.08);
+    }
+
+    .guide-card::before {
+      content: attr(data-step);
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 18px;
+      color: #ffffff;
+      background: var(--blue);
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .guide-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .guide-card p,
+    .guide-card li {
+      color: var(--muted);
+    }
+
+    .guide-card ul {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .guide-card code,
+    .inline-code {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 2px 7px;
+      color: var(--blue-dark);
+      background: rgba(34, 107, 159, 0.08);
+      border: 1px solid rgba(34, 107, 159, 0.12);
+      border-radius: 6px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.88em;
+      font-weight: 700;
+    }
+
+    .security-note {
+      margin-top: 16px;
+      padding: 16px 18px;
+      color: #334156;
+      background: rgba(34, 107, 159, 0.07);
+      border: 1px solid rgba(34, 107, 159, 0.12);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+    }
+
+    .showcase-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .features {
+      display: grid;
+      gap: 14px;
+    }
+
+    .feature { border-left: 5px solid var(--blue); }
+
+    .panel {
+      overflow: hidden;
+      background: #101821;
+      color: #dce7ef;
+      border: 1px solid rgba(16, 24, 33, 0.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #172433;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      font-size: 0.84rem;
+      color: #aebdcc;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #36d17e;
+      box-shadow: 0 0 0 5px rgba(54, 209, 126, 0.12);
+    }
+
+    .code {
+      margin: 0;
+      padding: 22px;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .token { color: #7dd3fc; }
+    .string { color: #f4c77d; }
+    .ok { color: #86efac; }
+
+    .case-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .case small {
+      display: inline-flex;
+      margin-bottom: 22px;
+      color: var(--green);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      padding: 24px 0 34px;
+      color: var(--muted);
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+      font-size: 0.92rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .developer{
+      text-decoration: underline;
+      color: var(--blue);
+    }
+
+    @media (max-width: 960px) {
+      .nav a:not(.portfolio-link) { display: none; }
+
+      .showcase-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-grid,
+      .guide-grid,
+      .case-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 32px, var(--content)); }
+      .page { padding-top: 64px; }
+      .topbar-inner { min-height: 64px; }
+      .brand span { display: none; }
+      .portfolio-link { font-size: 0.86rem; padding: 8px 10px; }
+      .hero { padding: 48px 0 42px; }
+      .hero-actions,
+      .download-actions { align-items: stretch; }
+      .button { width: 100%; }
+      .download-split { width: 100%; }
+      .download-split .button { width: auto; flex: 1; }
+      .download-menu-panel { left: 0; right: 0; min-width: 100%; }
+      .flow-grid,
+      .guide-grid,
+      .case-grid { grid-template-columns: 1fr; }
+      .panel-bar { align-items: flex-start; flex-direction: column; }
+      .code { font-size: 0.78rem; }
+      footer .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top" aria-label="Swift Print home">
+          <img src="swiftprint.ico" alt="Swift Print icon">
+          <span>Swift Print</span>
+        </a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#workflow">Workflow</a>
+          <a href="#guide">Guide</a>
+          <a href="#api">API</a>
+          <a class="portfolio-link" href="index.html">About the Developer</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-shell">
+          <div class="hero-copy">
+            <div class="eyebrow">Free open-source Windows print bridge</div>
+            <h1 id="hero-title">Swift Print</h1>
+            <p class="lead">Reliable local printing from browser-based applications.</p>
+            <div class="keyword-strip" aria-label="Swift Print qualities">
+              <span class="keyword-chip"><i class="fas fa-circle-check"></i> Free</span>
+              <span class="keyword-chip"><i class="fas fa-code-branch"></i> Open Source</span>
+              <span class="keyword-chip"><i class="fas fa-feather"></i> Lightweight</span>
+              <span class="keyword-chip"><i class="fab fa-windows"></i> Windows Only</span>
+              <span class="keyword-chip"><i class="fas fa-plug"></i> Local API</span>
+            </div>
+            <div class="hero-actions">
+              <div class="download-split">
+                <a class="button primary" href="https://github.com/makhijahemant/swift-print/releases/latest/download/Swift.Print.Installer.exe" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download Installer</a>
+                <details class="download-menu">
+                  <summary aria-label="Show ZIP download option"><i class="fas fa-chevron-down"></i></summary>
+                  <div class="download-menu-panel">
+                    <a href="https://github.com/makhijahemant/swift-print/releases/latest/download/Swift.Print.exe" target="_blank" rel="noopener noreferrer"><i class="fas fa-file"></i> Download Portable exe</a>
+                  </div>
+                </details>
+              </div>
+              <a class="button secondary" href="https://github.com/makhijahemant/swift-print/" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="workflow" aria-labelledby="workflow-title">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="workflow-title">From web app to printer in four steps.</h2>
+            <p>Swift Print keeps the integration small: discover printers, authorize the request, send raw data, and let Windows handle the device path.</p>
+          </div>
+          <div class="flow-grid">
+            <article class="flow-step">
+              <div class="num">1</div>
+              <h3>Run the tray app</h3>
+              <p>Swift Print starts quietly in the Windows system tray and listens on localhost.</p>
+            </article>
+            <article class="flow-step">
+              <div class="num">2</div>
+              <h3>Find printers</h3>
+              <p>Use the local API to list installed printers available to Windows.</p>
+            </article>
+            <article class="flow-step">
+              <div class="num">3</div>
+              <h3>Send print data</h3>
+              <p>Post base64 encoded receipt, label, ESC/POS, or other raw print commands.</p>
+            </article>
+            <article class="flow-step">
+              <div class="num">4</div>
+              <h3>Print locally</h3>
+              <p>Swift Print routes through native Windows printer integration.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="guide" aria-labelledby="guide-title">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="guide-title">Install, run, and print.</h2>
+            <p>A short local setup guide so you can understand the bridge without leaving this page.</p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide-card" data-step="1">
+              <h3>Install</h3>
+              <ul>
+                <li>Download the Windows installer from the button above.</li>
+                <li>Run the installer and launch Swift Print.</li>
+                <li>The app runs quietly in the Windows system tray.</li>
+              </ul>
+            </article>
+            <article class="guide-card" data-step="2">
+              <h3>Configure</h3>
+              <ul>
+                <li>Swift Print listens locally on <code>127.0.0.1</code>.</li>
+                <li>Default port is <code>1818</code>.</li>
+                <li>Change the default token <code>change-me</code> before real use.</li>
+              </ul>
+            </article>
+            <article class="guide-card" data-step="3">
+              <h3>Use the API</h3>
+              <ul>
+                <li>Check health with <code>GET /</code>.</li>
+                <li>List printers with <code>GET /printers</code>.</li>
+                <li>Print raw base64 data with <code>POST /print</code>.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="security-note">
+            Send the secret token with print requests using the <span class="inline-code">X-API-KEY</span> header. For browser testing, open <span class="inline-code">examples/test.html</span>, enter the port and token, then load printers or send a small test print.
+          </div>
+        </div>
+      </section>
+
+
+      <section id="api" aria-labelledby="api-title">
+        <div class="container showcase-layout">
+          <div>
+            <div class="section-head">
+              <h2 id="api-title">Small HTTP API.</h2>
+              <p>List printers, send raw print bytes, and protect printer actions with the <span class="inline-code">X-API-KEY</span> header.</p>
+            </div>
+            <div class="features">
+              <article class="feature">
+                <h3>Health</h3>
+                <p><span class="inline-code">GET /</span> verifies the bridge is running.</p>
+              </article>
+              <article class="feature">
+                <h3>Printers</h3>
+                <p><span class="inline-code">GET /printers</span> returns installed printers.</p>
+              </article>
+              <article class="feature">
+                <h3>Print</h3>
+                <p><span class="inline-code">POST /print</span> sends base64 encoded raw data.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="panel" aria-label="Swift Print API example">
+            <div class="panel-bar">
+              <span class="status">Swift Print running</span>
+              <span>127.0.0.1:1818</span>
+            </div>
+            <pre class="code"><code>POST /print HTTP/1.1
+Host: <span class="token">127.0.0.1:1818</span>
+Content-Type: application/json
+X-API-KEY: <span class="string">your-secret-token</span>
+
+{
+  "printer": <span class="string">"Receipt Printer"</span>,
+  "data": <span class="string">"BASE64_ENCODED_RAW_BYTES"</span>
+}
+
+<span class="ok">200 OK</span>
+{
+  "success": true,
+  "error": ""
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>Swift Print by <a class="developer" href="index.html">Hemant Makhija</a>
+        </span>
+        <a class="portfolio-link" href="index.html">View Hemant's Work</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

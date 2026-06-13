@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hemant Makhija - Full Stack Developer • C/C++, Java, Python, PHP, Node, React • SQL & Data • Automation •
+		Embedded System, ESP32, LVGL • Hobbyist in Video Editing, Motion Graphics & Design</title>
+
+	<link rel="icon" type="image/x-icon" href="./favicon.png">
+
+	<meta name="description"
+		content="Discover the professional portfolio of Hemant Makhija, a creative Full Stack Developer with 14+ years of experience in IT, software and data">
+	<meta name="keywords"
+		content="Hemant Makhija, Professional Profile, Portfolio, Full Stack Developer, Software Engineer, Software Developer, IT Professional, Data Engineer">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://makhijahemant.github.io">
+	<meta property="og:title"
+		content="Hemant Makhija - Full Stack Developer • C/C++, Java, Python, PHP, Node, React • SQL & Data • Automation • Embedded System, ESP32, LVGL • Hobbyist in Video Editing, Motion Graphics & Design">
+	<meta property="og:description"
+		content="Discover the professional portfolio of Hemant Makhija, a creative Full Stack Developer with 14+ years of experience in IT, software and data">
+	<meta property="og:image" content="https://makhijahemant.github.io/profile.png">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://makhijahemant.github.io">
+	<meta property="twitter:title"
+		content="Hemant Makhija - Full Stack Developer • C/C++, Java, Python, PHP, Node, React • SQL & Data • Automation • Embedded System, ESP32, LVGL • Hobbyist in Video Editing, Motion Graphics & Design">
+	<meta property="twitter:description"
+		content="Discover the professional portfolio of Hemant Makhija, a creative Full Stack Developer with 14+ years of experience in IT, software and data">
+	<meta property="twitter:image" content="https://makhijahemant.github.io/profile.png">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		:root {
+			--primary-bg: #fcfcfc;
+			--sidebar-bg: #226b9f;
+			--text-main: #000000;
+			--text-muted: #222;
+			--content-width: 1100px;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			overflow-x: hidden;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: var(--primary-bg);
+			display: flex;
+			min-height: max(100vh, 720px);
+			overflow-x: hidden;
+		}
+
+		/* SIDEBAR */
+		.sidebar {
+			width: 280px;
+			background-color: var(--sidebar-bg);
+			color: white;
+			position: fixed;
+			/* Fixed sidebar for scrolling content */
+			top: 0;
+			left: 0;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			border-bottom-right-radius: 60px;
+			box-shadow: 8px 0 25px rgba(0, 0, 0, 0.06);
+			z-index: 10;
+		}
+
+		/* Top Left Cutout - Creative Redesign */
+		.sidebar::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 120px;
+			height: 120px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 50%);
+			/* Creates a cool frosty light ray from the corner */
+			border-radius: 0;
+			z-index: 2;
+			pointer-events: none;
+		}
+
+		/* Add a floating accent circle in the opposite sidebar corner */
+		.sidebar::after {
+			content: '';
+			position: absolute;
+			top: 30px;
+			right: 30px;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.4);
+			box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+			z-index: 2;
+		}
+
+		/* Sidebar Profile */
+		.sidebar-profile {
+			display: flex;
+			justify-content: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			position: relative;
+			z-index: 5;
+		}
+
+		.sidebar-profile img {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 4px solid rgba(255, 255, 255, 0.15);
+		}
+
+		.sidebar-brand,
+		.mobile-menu-toggle {
+			display: none;
+		}
+
+		.drawer-overlay {
+			display: none;
+		}
+
+		.back-to-top {
+			position: fixed;
+			right: 24px;
+			bottom: 24px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 46px;
+			height: 46px;
+			border: none;
+			border-radius: 50%;
+			background: var(--sidebar-bg);
+			color: #ffffff;
+			box-shadow: 0 14px 30px rgba(34, 107, 159, 0.24);
+			cursor: pointer;
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(12px);
+			transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background 0.2s ease;
+			z-index: 120;
+		}
+
+		.back-to-top:hover {
+			background: #174e76;
+		}
+
+		.back-to-top.visible {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+		}
+
+		/* Navigation */
+		.nav {
+			list-style: none;
+			width: 100%;
+		}
+
+		.nav li {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 0 0 0 30px;
+			/* Aligned nicely */
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.3s ease;
+			height: 46px;
+		}
+
+		.nav li i {
+			width: 30px;
+			margin-right: 16px;
+			text-align: center;
+			font-size: 1.1rem;
+		}
+
+		.nav li:hover {
+			background-color: rgba(255, 255, 255, 0.05);
+		}
+
+		/* Active Nav Item */
+		.nav li.active {
+			background-color: rgba(0, 0, 0, 0.15);
+			/* Darker inset to highlight */
+			box-shadow: inset 4px 0 0 white;
+			/* Left border highlight */
+			color: #ffffff;
+			font-weight: 800;
+		}
+
+		.nav li.active::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: -16px;
+			/* Ensure this is not cut off by hidden overflow on body if any */
+			border-top: 23px solid transparent;
+			border-bottom: 23px solid transparent;
+			border-left: 23px solid var(--sidebar-bg);
+			/* Use the solid color of sidebar */
+			z-index: -1;
+		}
+
+		/* Sidebar Socials */
+		.sidebar-socials {
+			margin-top: 20px;
+			/* margin-top: auto; */
+			/* margin-bottom: 80px; */
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 18px;
+			/* Vertical spacing between rows */
+		}
+
+		.socials-row {
+			display: flex;
+			gap: 10px;
+			/* Horizontal spacing */
+			justify-content: center;
+		}
+
+		.diamond {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.diamond i {
+			font-size: 1.40rem;
+		}
+
+		.custom-tooltip {
+			position: fixed;
+			z-index: 9999;
+			pointer-events: none;
+			padding: 8px 11px;
+			background-color: #111827;
+			color: #ffffff;
+			border-radius: 8px;
+			font-size: 0.82rem;
+			font-weight: 700;
+			line-height: 1.2;
+			white-space: nowrap;
+			box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+			opacity: 0;
+			transform: translate(-50%, -100%);
+			/* transition: opacity 0.12s ease, transform 0.12s ease; */
+		}
+
+		.custom-tooltip.visible {
+			opacity: 1;
+			transform: translate(-50%, calc(-100% - 6px));
+		}
+
+		.custom-tooltip::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 100%;
+			transform: translateX(-50%);
+			border: 6px solid transparent;
+			border-top-color: #111827;
+		}
+
+		.sidebar .diamond {
+			background-color: white;
+			color: black;
+			border-radius: 50%;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.sidebar .diamond:hover {
+			background-color: #f0f0f0;
+		}
+
+		/* MAIN CONTENT AREA */
+		.main-container {
+			flex: 1;
+			margin-left: 280px;
+			/* offset the fixed sidebar */
+			padding: 0;
+			/* Remove padding here to allow full-bleed background colors */
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.page-section {
+			width: 100%;
+			padding: 50px 60px;
+			/* Move padding here */
+			border-bottom: 1px dashed rgba(34, 107, 159, 0.2);
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+			box-sizing: border-box;
+		}
+
+		.page-section>* {
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		/* Alternate background colors for sections */
+		.page-section:nth-of-type(even) {
+			background-color: #f1f4f9;
+			/* Subtle blue-gray with slightly more contrast */
+		}
+
+		.page-section:nth-of-type(odd) {
+			background-color: #ffffff;
+			/* Pure white */
+		}
+
+		.page-section:last-child {
+			border-bottom: none;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* ------------------ ABOUT SECTION ------------------ */
+		.profile-hero {
+			display: flex;
+			align-items: center;
+			gap: 36px;
+			margin-bottom: 30px;
+		}
+
+		.main-profile {
+			position: relative;
+			width: 220px;
+			height: 220px;
+			flex: 0 0 220px;
+		}
+
+		.creative-corner {
+			position: absolute;
+			top: -15px;
+			left: -15px;
+			width: 100px;
+			height: 100px;
+			background-image: radial-gradient(var(--sidebar-bg) 20%, transparent 20%);
+			background-size: 15px 15px;
+			z-index: 1;
+			border-radius: 10px;
+			animation: pulseDots 4s infinite alternate ease-in-out;
+		}
+
+		@keyframes pulseDots {
+			0% {
+				opacity: 0.6;
+				transform: scale(0.95);
+			}
+
+			100% {
+				opacity: 1;
+				transform: scale(1.05);
+			}
+		}
+
+		.main-profile img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 50%;
+			position: relative;
+			z-index: 2;
+			box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+			border: 5px solid white;
+		}
+
+		.about-heading {
+			font-size: 3rem;
+			font-weight: 800;
+			color: var(--text-main);
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: 8px;
+			line-height: 1;
+		}
+
+		.profile-tagline {
+			font-size: 1.2rem;
+			font-weight: 700;
+			color: var(--sidebar-bg);
+			line-height: 1.5;
+			margin-bottom: 10px;
+		}
+
+		.profile-tagline.secondary {
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--text-muted);
+		}
+
+		.about-text {
+			font-size: 1rem;
+			color: var(--text-muted);
+			line-height: 1.8;
+			margin-bottom: 15px;
+			text-align: justify;
+			text-justify: inter-word;
+		}
+
+		.main-socials {
+			display: flex;
+			gap: 10px;
+		}
+
+		.main-socials .diamond {
+			border: 2px solid var(--sidebar-bg);
+			background-color: var(--sidebar-bg);
+			color: #fff;
+			border-radius: 50%;
+		}
+
+		.main-socials .diamond:hover {
+			background-color: white;
+			color: var(--sidebar-bg);
+		}
+
+		.main-socials .diamond:hover i {
+			color: var(--sidebar-bg);
+		}
+
+		.main-section-title {
+			font-size: 2rem;
+			font-weight: 800;
+			color: var(--text-main);
+			text-transform: uppercase;
+			margin-bottom: 50px;
+			letter-spacing: 2px;
+			position: relative;
+			display: inline-block;
+		}
+
+		.main-section-title::after {
+			content: '';
+			position: absolute;
+			bottom: -15px;
+			left: 0;
+			width: 50px;
+			height: 6px;
+			background-color: var(--sidebar-bg);
+			border-radius: 3px;
+		}
+
+		/* ------------------ REUSABLE COMPONENTS ------------------ */
+		.accent-heading-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			margin-bottom: 40px;
+		}
+
+		.accent-shape {
+			width: 24px;
+			height: 24px;
+			background: transparent;
+			border-top: 5px solid var(--sidebar-bg);
+			border-left: 5px solid var(--sidebar-bg);
+			position: relative;
+			flex-shrink: 0;
+			margin-right: 5px;
+			transform: translateY(-4px);
+		}
+
+		/* Decorative inner dot */
+		.accent-shape::after {
+			content: '';
+			position: absolute;
+			top: 4px;
+			left: 4px;
+			width: 10px;
+			height: 10px;
+			background-color: var(--sidebar-bg);
+			border-radius: 50%;
+		}
+
+		.section-title {
+			font-size: 1.8rem;
+			font-weight: 800;
+			color: var(--text-main);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		/* ------------------ ENGINEERING HIGHLIGHTS SECTION ------------------ */
+		#highlights {
+			min-height: auto;
+			justify-content: flex-start;
+			padding-top: 80px;
+			padding-bottom: 80px;
+		}
+
+		.highlights-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 22px;
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		.highlight-item {
+			position: relative;
+			display: grid;
+			grid-template-columns: auto 1fr;
+			align-items: center;
+			gap: 18px;
+			padding: 24px 26px;
+			background: #fff;
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--text-main);
+			overflow: hidden;
+		}
+
+		.highlight-item::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background: linear-gradient(90deg, var(--sidebar-bg), #50a4d8);
+		}
+
+		.highlight-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			background-color: rgba(34, 107, 159, 0.1);
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--sidebar-bg);
+			font-size: 1.35rem;
+		}
+
+		.highlight-copy strong {
+			display: block;
+			font-size: 1.35rem;
+			font-weight: 800;
+			line-height: 1.2;
+			margin-bottom: 4px;
+		}
+
+		.highlight-copy span {
+			display: block;
+			font-size: 0.98rem;
+			line-height: 1.45;
+			color: var(--text-muted);
+		}
+
+		/* ------------------ SKILLS SECTION ------------------ */
+		.skills-categories {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 18px;
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		.skill-category {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			gap: 20px 10px;
+			align-items: center;
+			padding: 20px;
+			background-color: #ffffff;
+			border: 1px solid rgba(34, 107, 159, 0.14);
+			border-left: 5px solid var(--sidebar-bg);
+			border-radius: 8px;
+			box-shadow: 0 12px 28px rgba(34, 107, 159, 0.08);
+		}
+
+		.skill-category-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 42px;
+			height: 42px;
+			background-color: rgba(34, 107, 159, 0.1);
+			border-radius: 8px;
+			color: var(--sidebar-bg);
+			font-size: 1.15rem;
+		}
+
+		.skill-category h3 {
+			font-size: 1.25rem;
+			font-weight: 800;
+			color: var(--text-main);
+			margin-bottom: 0;
+		}
+
+		.skill-category>div:not(.skill-category-icon) {
+			display: contents;
+		}
+
+		.skill-chip-grid {
+			display: flex;
+			grid-column: 2 / -1;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 2px;
+		}
+
+		.skill-chip {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			min-height: 42px;
+			padding: 9px 12px;
+			background-color: #f7fbff;
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--text-muted);
+			font-size: 0.94rem;
+			line-height: 1.25;
+		}
+
+		.skill-chip i {
+			color: var(--sidebar-bg);
+			font-size: 1.1rem;
+			width: 20px;
+			text-align: center;
+			flex: 0 0 20px;
+		}
+
+		.skill-chip img {
+			width: 22px;
+			height: 22px;
+			object-fit: contain;
+			flex: 0 0 22px;
+		}
+
+
+		/* ------------------ ENGINEERING PHILOSOPHY SECTION ------------------ */
+		.philosophy-card {
+			position: relative;
+			width: 100%;
+			max-width: var(--content-width);
+			padding: 34px 38px;
+			background: #fff;
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-left: 6px solid var(--sidebar-bg);
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.philosophy-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 150px;
+			height: 150px;
+			background-image: radial-gradient(rgba(34, 107, 159, 0.16) 20%, transparent 21%);
+			background-size: 16px 16px;
+			opacity: 0.65;
+		}
+
+		.philosophy-text {
+			position: relative;
+			color: var(--text-muted);
+			font-size: 1.08rem;
+			line-height: 1.9;
+			text-align: justify;
+			text-justify: inter-word;
+			margin-bottom: 10px;
+		}
+
+		.philosophy-text strong {
+			color: var(--text-main);
+			font-weight: 800;
+		}
+
+
+		/* ------------------ SELECTED PROJECTS SECTION ------------------ */
+		.projects-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 22px;
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		.project-card {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			gap: 22px;
+			padding: 30px 34px;
+			background: linear-gradient(135deg, #ffffff 0%, #f7fbff 100%);
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-left: 6px solid var(--sidebar-bg);
+			border-radius: 8px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+		}
+
+		.project-card:hover {
+			transform: translateY(-3px);
+			border-color: rgba(34, 107, 159, 0.28);
+			box-shadow: 0 22px 46px rgba(34, 107, 159, 0.14);
+		}
+
+		.project-header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 18px;
+		}
+
+		.project-title-group h3 {
+			font-size: 1.65rem;
+			font-weight: 800;
+			color: var(--text-main);
+			line-height: 1.15;
+			margin-bottom: 8px;
+		}
+
+		.project-subtitle {
+			font-size: 1rem;
+			font-weight: 700;
+			color: var(--sidebar-bg);
+			line-height: 1.45;
+		}
+
+		.project-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 11px;
+			background-color: rgba(34, 107, 159, 0.1);
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--sidebar-bg);
+			font-size: 0.82rem;
+			font-weight: 800;
+			line-height: 1;
+			white-space: nowrap;
+		}
+
+		.project-description {
+			color: var(--text-muted);
+			font-size: 1rem;
+			line-height: 1.75;
+			text-align: justify;
+		}
+
+		.project-details {
+			display: grid;
+			grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+			gap: 24px;
+			align-items: flex-start;
+		}
+
+		.project-detail-title {
+			font-size: 0.82rem;
+			font-weight: 800;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			color: var(--text-main);
+			margin-bottom: 12px;
+		}
+
+		.project-highlights {
+			list-style: none;
+			display: grid;
+			gap: 9px;
+			color: var(--text-muted);
+			font-size: 0.96rem;
+			line-height: 1.55;
+		}
+
+		.project-highlights li {
+			position: relative;
+			padding-left: 22px;
+		}
+
+		.project-highlights li::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0.68em;
+			width: 7px;
+			height: 7px;
+			background-color: var(--sidebar-bg);
+			border-radius: 50%;
+		}
+
+		.project-tech-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.project-tech {
+			display: inline-flex;
+			align-items: center;
+			min-height: 34px;
+			padding: 7px 10px;
+			background-color: #ffffff;
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--text-muted);
+			font-size: 0.86rem;
+			font-weight: 700;
+			line-height: 1.2;
+		}
+
+		.project-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			align-items: center;
+		}
+
+		.project-action {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 9px;
+			width: fit-content;
+			min-height: 42px;
+			padding: 10px 14px;
+			background-color: var(--sidebar-bg);
+			border: 1px solid var(--sidebar-bg);
+			border-radius: 8px;
+			color: #ffffff;
+			font-size: 0.94rem;
+			font-weight: 800;
+			line-height: 1;
+			text-decoration: none;
+			transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+		}
+
+		.project-action:hover {
+			background-color: #ffffff;
+			color: var(--sidebar-bg);
+			transform: translateY(-2px);
+		}
+
+
+		/* ------------------ BEYOND ENGINEERING SECTION ------------------ */
+		.beyond-card {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			align-items: center;
+			gap: 22px;
+		}
+
+		.beyond-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 58px;
+			height: 58px;
+			background-color: rgba(34, 107, 159, 0.1);
+			border: 1px solid rgba(34, 107, 159, 0.16);
+			border-radius: 8px;
+			color: var(--sidebar-bg);
+			font-size: 1.45rem;
+		}
+
+		/* ------------------ CONTACT SECTION ------------------ */
+		#contact {
+			min-height: 100vh;
+			justify-content: flex-start;
+		}
+
+		.contact-layout {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			align-items: stretch;
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		.contact-intro {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 24px;
+			width: 100%;
+			padding: 24px 28px;
+			background: linear-gradient(135deg, var(--sidebar-bg), #174a72);
+			border-radius: 8px;
+			color: #ffffff;
+			overflow: hidden;
+		}
+
+		.contact-intro::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 130px;
+			height: 130px;
+			background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.26) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.18) 75%, transparent 75%, transparent);
+			background-size: 18px 18px;
+			opacity: 0.5;
+		}
+
+		.contact-intro-content,
+		.contact-availability {
+			position: relative;
+			z-index: 1;
+		}
+
+		.contact-kicker {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 10px;
+			font-size: 0.82rem;
+			font-weight: 800;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			opacity: 0.88;
+		}
+
+		.contact-intro h3 {
+			font-size: 1.55rem;
+			font-weight: 800;
+			line-height: 1.2;
+		}
+
+		.contact-availability {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			font-weight: 700;
+		}
+
+		.contact-availability i {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 36px;
+			height: 36px;
+			background-color: rgba(255, 255, 255, 0.16);
+			border-radius: 8px;
+		}
+
+		.contact-actions {
+			display: flex;
+			width: 100%;
+			flex-wrap: wrap;
+			align-content: flex-start;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 10px;
+		}
+
+		.contact-method {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			min-height: 46px;
+			padding: 10px 14px;
+			background-color: #ffffff;
+			border: 1px solid var(--sidebar-bg);
+			border-radius: 8px;
+			color: var(--text-main);
+			text-decoration: none;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+		}
+
+		.contact-method:hover {
+			transform: translateY(-4px);
+			border-color: rgba(34, 107, 159, 0.38);
+			box-shadow: 0 20px 38px rgba(34, 107, 159, 0.14);
+		}
+
+		.contact-method-icon {
+			display: inline-flex;
+			color: var(--sidebar-bg);
+			font-size: 1.25rem;
+		}
+
+		.contact-method-label {
+			font-size: 0.96rem;
+			white-space: nowrap;
+		}
+
+		/* ------------------ TIMELINE (EXP & EDU) ------------------ */
+		.timeline {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			max-width: var(--content-width);
+		}
+
+		.timeline-item {
+			display: flex;
+			margin-bottom: 10px;
+		}
+
+		.timeline-date {
+			width: 80px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			font-size: 0.9rem;
+			font-weight: 600;
+			color: var(--text-muted);
+			line-height: 1.3;
+			padding-top: 5px;
+			/* aligns roughly with heading text */
+		}
+
+		.timeline-divider {
+			width: 1px;
+			background-color: #cbd5e1;
+			margin: 0 35px;
+			position: relative;
+		}
+
+		.timeline-content {
+			flex: 1;
+			padding-bottom: 60px;
+			/* spacing to next item */
+		}
+
+		.timeline-content .accent-heading-wrapper {
+			margin-bottom: 15px;
+			/* override for timeline */
+		}
+
+		.timeline-content .section-title {
+			font-size: 1.8rem;
+			/* slightly smaller in timeline */
+		}
+
+		.company-name {
+			font-size: 1.25rem;
+			font-weight: 400;
+			color: var(--text-muted);
+			margin-bottom: 25px;
+			text-transform: uppercase;
+			margin-left: 45px;
+			/* Align with text after the shape */
+		}
+
+		.task-list {
+			list-style: none;
+			margin-left: 45px;
+			/* align with company */
+		}
+
+		.task-list li {
+			font-size: 1.1rem;
+			color: var(--text-muted);
+			margin-bottom: 8px;
+			position: relative;
+			padding-left: 20px;
+			line-height: 1.5;
+			text-align: justify;
+		}
+
+		.task-list>li::before {
+			content: '•';
+			position: absolute;
+			left: 0;
+			color: var(--text-main);
+			font-weight: bold;
+		}
+
+		/* For Education */
+		.edu-timeline .company-name {
+			margin-bottom: 0;
+			font-size: 1.15rem;
+		}
+
+		.edu-timeline .timeline-content {
+			padding-bottom: 45px;
+		}
+
+		/* =================== MOBILE RESPONSIVENESS =================== */
+		@media (max-width: 900px) {
+			body {
+				flex-direction: column;
+				padding-top: 64px;
+			}
+
+			.sidebar {
+				width: 100%;
+				height: 64px;
+				top: 0;
+				bottom: auto;
+				left: 0;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 18px;
+				overflow: visible;
+				border-radius: 0;
+				z-index: 100;
+				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+			}
+
+			.sidebar::after,
+			.sidebar-socials {
+				display: none;
+			}
+
+			.sidebar::before {
+				display: none;
+			}
+
+			.sidebar-brand {
+				display: block;
+				order: 2;
+				margin-left: auto;
+				color: #ffffff;
+				font-size: 1rem;
+				font-weight: 800;
+				line-height: 1.2;
+				text-align: right;
+			}
+
+			.mobile-menu-toggle {
+				display: inline-flex;
+				order: 1;
+				align-items: center;
+				justify-content: center;
+				gap: 9px;
+				min-height: 40px;
+				padding: 8px 12px;
+				background: rgba(255, 255, 255, 0.12);
+				border: 1px solid rgba(255, 255, 255, 0.24);
+				border-radius: 8px;
+				color: #ffffff;
+				font: inherit;
+				font-size: 0.92rem;
+				font-weight: 800;
+				cursor: pointer;
+			}
+
+			.sidebar-profile {
+				display: none;
+			}
+
+			body.drawer-open {
+				overflow: hidden;
+			}
+
+			.drawer-overlay {
+				display: block;
+				position: fixed;
+				inset: 64px 0 0;
+				background: rgba(15, 23, 42, 0.42);
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.22s ease;
+				z-index: 90;
+			}
+
+			.drawer-overlay:not([hidden]) {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.nav {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				position: fixed;
+				top: 64px;
+				bottom: 0;
+				left: 0;
+				width: min(82vw, 310px);
+				height: calc(100vh - 64px);
+				overflow-y: auto;
+				padding: 14px;
+				background-color: var(--sidebar-bg);
+				transform: translateX(-100%);
+				transition: transform 0.22s ease;
+				z-index: 110;
+			}
+
+			.sidebar.menu-open .nav {
+				transform: translateX(0);
+			}
+
+			.nav li {
+				justify-content: flex-start;
+				padding: 12px 14px;
+				height: auto;
+				min-height: 46px;
+				font-size: 0.92rem;
+				font-weight: 700;
+				text-align: left;
+				border: 1px solid rgba(255, 255, 255, 0.14);
+				border-radius: 8px;
+			}
+
+			.nav li i {
+				margin-right: 10px;
+				margin-bottom: 0;
+				font-size: 1rem;
+				width: 20px;
+			}
+
+			.nav li.active {
+				background-color: rgba(0, 0, 0, 0.18);
+				box-shadow: inset 3px 0 0 white;
+				color: #ffffff;
+				font-weight: 800;
+			}
+
+			.nav li.active::before,
+			.nav li.active::after {
+				display: none;
+			}
+
+			/* Main Content adjustments */
+			.main-container {
+				margin-left: 0;
+				padding: 0;
+				/* Remove padding to allow full-bleed background colors */
+				align-items: flex-start;
+				width: 100%;
+				max-width: 100vw;
+				overflow-x: hidden;
+			}
+
+			.back-to-top {
+				right: 18px;
+				bottom: 18px;
+				width: 42px;
+				height: 42px;
+			}
+
+			.page-section {
+				padding: 60px 8%;
+				/* Adjust internal padding */
+				margin-bottom: 0;
+				/* No margin to ensure no gaps between sections */
+				width: 100%;
+				box-sizing: border-box;
+			}
+
+			/* About Section */
+			#about {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				text-align: left;
+				position: relative;
+			}
+
+			.main-section-title {
+				display: block;
+				/* Make headings visible on mobile */
+				font-size: 2.2rem;
+				margin-top: 20px;
+				margin-bottom: 30px;
+				align-self: flex-start;
+				text-align: left;
+			}
+
+			.main-profile {
+				width: 250px;
+				height: 250px;
+				margin: 0 auto 20px;
+				align-self: center;
+				border: 6px solid white;
+				flex-basis: 250px;
+			}
+
+			/* The blue corner graphic for mobile profile */
+			.creative-corner {
+				display: none;
+				/* Remove dot matrix */
+			}
+
+			#about::before {
+				/* The large blue abstract corner placed on the section container */
+				content: '';
+				position: absolute;
+				top: -40px;
+				/* Offset the container padding */
+				left: -5vw;
+				width: 150px;
+				height: 150px;
+				background-color: var(--sidebar-bg);
+				border-bottom-right-radius: 100%;
+				z-index: 0;
+			}
+
+			.about-heading {
+				font-size: 3rem;
+				align-self: flex-start;
+				margin-top: 0;
+				margin-bottom: 5px;
+			}
+
+			.profile-hero {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 8px;
+				margin-bottom: 30px;
+				width: 100%;
+				text-align: center;
+			}
+
+			.profile-copy {
+				width: 100%;
+			}
+
+			.profile-tagline {
+				font-size: 1.1rem;
+				align-self: flex-start;
+			}
+
+			.profile-tagline.secondary {
+				font-size: 1rem;
+			}
+
+			.about-text {
+				font-size: 1.1rem;
+				align-self: flex-start;
+			}
+
+			/* Mobile Socials (Perfect 3-2 Staggered Grid) */
+			.main-socials {
+				display: flex;
+				justify-content: center;
+				gap: 10px;
+				width: 260px;
+				margin: 0 auto 0;
+				align-self: center;
+			}
+
+			.main-socials a {
+				margin: 0;
+			}
+
+			.highlights-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.highlight-item,
+			.skill-category {
+				padding: 20px;
+			}
+
+
+			.philosophy-card {
+				padding: 24px 22px;
+			}
+
+			.philosophy-text {
+				font-size: 1rem;
+				line-height: 1.75;
+			}
+
+			.project-card {
+				padding: 24px 22px;
+			}
+
+			.project-header,
+			.project-details {
+				grid-template-columns: 1fr;
+			}
+
+			.project-header {
+				display: grid;
+				gap: 12px;
+			}
+
+			.project-title-group h3 {
+				font-size: 1.42rem;
+			}
+
+			.project-badge,
+			.project-action {
+				width: fit-content;
+			}
+
+
+
+			.beyond-card {
+				grid-template-columns: 1fr;
+				gap: 16px;
+			}
+
+			.skill-category {
+				grid-template-columns: auto 1fr;
+			}
+
+			.skill-chip {
+				font-size: 0.88rem;
+				padding: 8px 10px;
+			}
+
+			.contact-layout {
+				gap: 14px;
+			}
+
+			.contact-intro {
+				align-items: flex-start;
+				padding: 20px;
+			}
+
+			.contact-intro h3 {
+				font-size: 1.25rem;
+			}
+
+			.contact-method {
+				padding: 9px 11px;
+			}
+
+			.social-icon {
+				width: 60px;
+				height: 60px;
+				border-width: 2px;
+			}
+
+			.social-icon i {
+				font-size: 1.5rem;
+			}
+
+			/* Section items */
+			.skills-grid {
+				justify-content: center;
+			}
+
+			/* Optimize Timeline for Mobile: Move dates above content to save space */
+			.timeline {
+				padding-left: 0;
+			}
+
+			.timeline-item {
+				flex-direction: column;
+				margin-bottom: 40px;
+			}
+
+			.timeline-date {
+				width: auto;
+				flex-direction: row;
+				gap: 5px;
+				margin-bottom: 10px;
+				color: var(--sidebar-bg);
+				font-size: 0.9rem;
+			}
+
+			.timeline-date span:nth-child(2) {
+				margin: 0;
+			}
+
+			.timeline-content {
+				padding-left: 15px;
+				border-left: 2px solid var(--sidebar-bg);
+			}
+
+			.timeline-content::before,
+			.timeline-content::after {
+				display: none;
+				/* Hide desktop decorative shapes on mobile */
+			}
+		}
+
+		/* ---- Contact Popup Modal ---- */
+		#contact-modal-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.45);
+			backdrop-filter: blur(4px);
+			z-index: 9999;
+			align-items: center;
+			justify-content: center;
+		}
+
+		#contact-modal-overlay.active {
+			display: flex;
+		}
+
+		#contact-modal {
+			background: #ffffff;
+			border-radius: 16px;
+			padding: 36px 40px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+			max-width: 400px;
+			width: 90%;
+			position: relative;
+			animation: modalIn 0.25s ease;
+		}
+
+		@keyframes modalIn {
+			from {
+				opacity: 0;
+				transform: scale(0.9);
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		#contact-modal .modal-icon {
+			font-size: 2.2rem;
+			color: var(--sidebar-bg);
+			margin-bottom: 14px;
+		}
+
+		#contact-modal h3 {
+			font-size: 1rem;
+			font-weight: 600;
+			color: #888;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 10px;
+		}
+
+		#contact-modal .modal-value {
+			font-size: 1.4rem;
+			font-weight: 800;
+			color: var(--text-main);
+			word-break: break-all;
+			margin-bottom: 24px;
+		}
+
+		#contact-modal .modal-actions {
+			display: flex;
+			gap: 12px;
+		}
+
+		#contact-modal .btn-action {
+			flex: 1;
+			padding: 12px 16px;
+			border: none;
+			border-radius: 10px;
+			font-size: 0.95rem;
+			font-weight: 700;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			transition: opacity 0.2s;
+		}
+
+		#contact-modal .btn-action:hover {
+			opacity: 0.85;
+		}
+
+		#contact-modal .btn-copy {
+			background: #f0f4f8;
+			color: var(--sidebar-bg);
+		}
+
+		#contact-modal .btn-open {
+			background: var(--sidebar-bg);
+			color: #ffffff;
+		}
+
+		#contact-modal .btn-close {
+			position: absolute;
+			top: 14px;
+			right: 18px;
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			color: #aaa;
+			line-height: 1;
+		}
+
+		#contact-modal .btn-close:hover {
+			color: #333;
+		}
+
+		#contact-modal .copied-hint {
+			display: none;
+			font-size: 0.8rem;
+			color: #28a745;
+			margin-top: 8px;
+			font-weight: 600;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Contact Info Popup Modal -->
+	<div id="contact-modal-overlay" onclick="closeContactModal(event)">
+		<div id="contact-modal">
+			<button class="btn-close" onclick="closeContactModal()">&times;</button>
+			<div class="modal-icon"><i id="modal-icon-el" class="fas fa-phone-alt"></i></div>
+			<h3 id="modal-label">Phone</h3>
+			<div class="modal-value" id="modal-value">Loading...</div>
+			<div class="modal-actions">
+				<button class="btn-action btn-copy" onclick="copyContactValue()"><i class="fas fa-copy"></i>
+					Copy</button>
+				<a class="btn-action btn-open" id="modal-link" href="#">Call</a>
+			</div>
+			<div class="copied-hint" id="copied-hint">✓ Copied to clipboard!</div>
+		</div>
+	</div>
+
+	<aside class="sidebar">
+		<div class="sidebar-profile">
+			<img src="data:image/jpeg;base64,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"
+				alt="Hemant Makhija">
+		</div>
+
+		<button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+			<i class="fas fa-bars"></i> <span>Menu</span>
+		</button>
+
+		<div class="sidebar-brand">Hemant Makhija</div>
+
+		<ul class="nav" id="site-navigation">
+			<li class="active" data-target="about">
+				<i class="fas fa-user"></i> <span>About</span>
+			</li>
+			<li data-target="highlights">
+				<i class="fas fa-star"></i> <span>Highlights</span>
+			</li>
+			<li data-target="skills">
+				<i class="fas fa-keyboard"></i> <span>Expertise</span>
+			</li>
+			<li data-target="philosophy">
+				<i class="fas fa-lightbulb"></i> <span>Philosophy</span>
+			</li>
+			<li data-target="projects">
+				<i class="fas fa-code-branch"></i> <span>Projects</span>
+			</li>
+			<li data-target="experience">
+				<i class="fas fa-building"></i> <span>Experience</span>
+			</li>
+			<li data-target="education">
+				<i class="fas fa-book-open"></i> <span>Education</span>
+			</li>
+			<li data-target="beyond-engineering">
+				<i class="fas fa-wand-magic-sparkles"></i> <span>Beyond Engineering</span>
+			</li>
+			<li data-target="contact">
+				<i class="fas fa-paper-plane"></i> <span>Contact</span>
+			</li>
+		</ul>
+
+		<div class="sidebar-socials">
+			<div class="socials-row row-1">
+				<a target="_blank" href="https://www.linkedin.com/in/hemant-makhija" class="diamond"
+					data-tooltip="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+				<a target="_blank" href="https://github.com/makhijahemant" class="diamond" data-tooltip="GitHub"
+					aria-label="GitHub"><i class="fab fa-github"></i></a>
+				<a href="#" class="diamond" onclick="revealContact(this, 'email')" data-tooltip="Email"
+					aria-label="Email"><i class="fas fa-envelope"></i></a>
+				<a target="_blank" href="https://drive.google.com/file/d/1QHOtJWpVBBFjIU0IBXYgpUKaQARAAL7f/view"
+					class="diamond" data-tooltip="Resume" aria-label="Resume"><i class="fas fa-file-arrow-down"></i></a>
+			</div>
+		</div>
+	</aside>
+
+	<div class="drawer-overlay" hidden></div>
+
+	<main class="main-container">
+
+		<!-- =================== ABOUT SECTION =================== -->
+		<section id="about" class="page-section">
+			<h2 class="main-section-title">ABOUT ME</h2>
+
+			<div class="profile-hero">
+				<div class="main-profile">
+					<!-- Creative corner dot matrix design -->
+					<div class="creative-corner"></div>
+					<img src="data:image/jpeg;base64,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"
+						alt="Hemant Makhija">
+				</div>
+
+				<div class="profile-copy">
+					<h1 class="about-heading">Hemant Makhija</h1>
+					<p class="profile-tagline">Senior Software Engineer | Systems Architect | Data Engineering</p>
+					<p class="profile-tagline secondary">System Design • Data Engineering • Full-Stack Development •
+						Automation & Integration • Embedded & IoT</p>
+
+					<div class="main-socials">
+						<a target="_blank" href="https://www.linkedin.com/in/hemant-makhija" class="diamond"
+							data-tooltip="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+						<a target="_blank" href="https://github.com/makhijahemant" class="diamond" data-tooltip="GitHub"
+							aria-label="GitHub"><i class="fab fa-github"></i></a>
+						<a href="#" class="diamond" onclick="revealContact(this, 'email')" data-tooltip="Email"
+							aria-label="Email"><i class="fas fa-envelope"></i></a>
+						<a target="_blank" href="https://drive.google.com/file/d/1QHOtJWpVBBFjIU0IBXYgpUKaQARAAL7f/view"
+							class="diamond" data-tooltip="Resume" aria-label="Resume"><i
+								class="fas fa-file-arrow-down"></i></a>
+					</div>
+				</div>
+
+
+			</div>
+
+			<p class="about-text"> I am a Senior Software Engineer with 14+ years of experience designing and building
+				scalable backend systems, robust data pipelines, and end-to-end enterprise solutions.
+			</p>
+
+			<p class="about-text">I design and architect backend systems and data pipelines, and software solutions that
+				prioritize reliability, performance, and maintainability. Over the last decade and a
+				half, I have helped companies optimize performance at scale, tackle critical technical debt, and build
+				reliable systems. I am deeply pragmatic, technology-agnostic, and focused on delivering clear business
+				value through clean code.
+			</p>
+
+		</section>
+
+
+		<!-- =================== ENGINEERING HIGHLIGHTS SECTION =================== -->
+		<section id="highlights" class="page-section">
+			<h2 class="main-section-title">ENGINEERING HIGHLIGHTS</h2>
+
+			<div class="highlights-grid">
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-briefcase"></i></div>
+					<div class="highlight-copy">
+						<strong>14+ years</strong>
+						<span>Software engineering experience</span>
+					</div>
+				</div>
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-check-circle"></i></div>
+					<div class="highlight-copy">
+						<strong>30+ projects</strong>
+						<span>Industry projects delivered</span>
+					</div>
+				</div>
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-database"></i></div>
+					<div class="highlight-copy">
+						<strong>350M+ records</strong>
+						<span>Optimized high-volume databases</span>
+					</div>
+				</div>
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-layer-group"></i></div>
+					<div class="highlight-copy">
+						<strong>Multi-tenant SaaS</strong>
+						<span>Built secure platforms with scalable access control</span>
+					</div>
+				</div>
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-microchip"></i></div>
+					<div class="highlight-copy">
+						<strong>End-to-end systems</strong>
+						<span>Cloud, web, desktop, embedded, and data solutions</span>
+					</div>
+				</div>
+				<div class="highlight-item">
+					<div class="highlight-icon"><i class="fas fa-sitemap"></i></div>
+					<div class="highlight-copy">
+						<strong>Architecture leadership</strong>
+						<span>Led technical design and architecture initiatives</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- =================== SKILLS SECTION =================== -->
+		<section id="skills" class="page-section">
+			<h2 class="main-section-title">EXPERTISE</h2>
+
+			<div class="skills-categories">
+				<div class="skill-category">
+					<div>
+						<div class="skill-category-icon"><i class="fas fa-cloud"></i></div>
+						<h3>Architecture &amp; Cloud</h3>
+					</div>
+					<div>
+						<div class="skill-chip-grid">
+							<span class="skill-chip"><i class="fas fa-network-wired"></i>Distributed Systems</span>
+							<span class="skill-chip"><i class="fas fa-cubes"></i>Microservices</span>
+							<span class="skill-chip"><i class="fas fa-plug"></i>REST APIs</span>
+							<span class="skill-chip"><i class="fab fa-aws"></i>AWS/GCP</span>
+							<span class="skill-chip"><i class="fas fa-layer-group"></i>SaaS</span>
+							<span class="skill-chip"><i class="fas fa-user-shield"></i>RBAC</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="skill-category">
+					<div class="skill-category-icon"><i class="fas fa-code"></i></div>
+					<div>
+						<h3>Full-Stack Development</h3>
+						<div class="skill-chip-grid">
+							<span class="skill-chip"><i class="fas fa-desktop"></i>Web &amp; Desktop Apps</span>
+							<span class="skill-chip"><i class="fab fa-node-js"></i>Node.js</span>
+							<span class="skill-chip"><i class="fas fa-route"></i>Express / Hono</span>
+							<span class="skill-chip"><i class="fab fa-java"></i>Java</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+									alt="Spring Boot">Spring Boot</span>
+							<span class="skill-chip"><i class="fab fa-python"></i>Python / Flask</span>
+							<span class="skill-chip"><i class="fab fa-php"></i>PHP</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/codeigniter/codeigniter-plain.svg"
+									alt="CodeIgniter">CodeIgniter / Laravel</span>
+							<span class="skill-chip"><i class="fab fa-wordpress"></i>WordPress</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+									alt="TypeScript">TypeScript</span>
+							<span class="skill-chip"><i class="fab fa-react"></i>React</span>
+							<span class="skill-chip"><i class="fab fa-css3-alt"></i>Modern CSS Frameworks</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="skill-category">
+					<div class="skill-category-icon"><i class="fas fa-bolt"></i></div>
+					<div>
+						<h3>Automation &amp; Productivity</h3>
+						<div class="skill-chip-grid">
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/selenium/selenium-original.svg"
+									alt="Selenium">Selenium</span>
+							<span class="skill-chip"><i class="fab fa-chrome"></i>Chrome Extensions</span>
+							<span class="skill-chip"><i class="fas fa-file-excel"></i>Excel/VBA</span>
+							<span class="skill-chip"><i class="fas fa-gears"></i>Workflow Automation</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="skill-category">
+					<div class="skill-category-icon"><i class="fas fa-database"></i></div>
+					<div>
+						<h3>Data &amp; Databases</h3>
+						<div class="skill-chip-grid">
+							<span class="skill-chip"><i class="fas fa-server"></i>350M+ Records</span>
+							<span class="skill-chip"><i class="fas fa-diagram-project"></i>ETL Pipelines</span>
+							<span class="skill-chip"><i class="fas fa-link"></i>Data Integration</span>
+							<span class="skill-chip"><i class="fas fa-magnifying-glass-chart"></i>SQL
+								Optimization</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+									alt="MySQL">MySQL</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+									alt="PostgreSQL">PostgreSQL</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg"
+									alt="SQLite">SQLite</span>
+							<span class="skill-chip"><i class="fas fa-table"></i>MS Access</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="skill-category">
+					<div class="skill-category-icon"><i class="fas fa-microchip"></i></div>
+					<div>
+						<h3>Embedded &amp; IoT</h3>
+						<div class="skill-chip-grid">
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"
+									alt="C">C</span>
+							<span class="skill-chip"><img
+									src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+									alt="C++">C++</span>
+							<span class="skill-chip"><i class="fas fa-microchip"></i>ESP32</span>
+							<span class="skill-chip"><i class="fas fa-clock"></i>FreeRTOS</span>
+							<span class="skill-chip"><i class="fas fa-display"></i>LVGL</span>
+							<span class="skill-chip"><i class="fas fa-signal"></i>GSM Integration</span>
+							<span class="skill-chip"><i class="fas fa-cloud-arrow-down"></i>Edge Computing</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- =================== ENGINEERING PHILOSOPHY SECTION =================== -->
+		<section id="philosophy" class="page-section">
+			<h2 class="main-section-title">ENGINEERING PHILOSOPHY</h2>
+
+			<div class="philosophy-card">
+				<p class="philosophy-text">
+					<strong>Frameworks and programming languages are tools, not
+						identities.</strong> Over my 14-year career, frameworks have come and gone. I have worked across
+					highly diverse software ecosystems, from low-level embedded microcontrollers to cloud-native Java,
+					PHP, and Python backends.
+					<br />
+					<br />
+					This breadth of experience has taught me to be deeply pragmatic and
+					strictly technology-agnostic. I evaluate technical stacks based on real system constraints,
+					long-term maintenance costs, and team velocity, rather than personal preference or shifting industry
+					bias.
+					<br />
+					<br />
+					For me, senior engineering is about delivering clear business value through clean maintainable code,
+					resilient architecture, and predictable systems. I focus on building
+					solutions that scale efficiently, proactively tackle critical technical
+					debt, and establish reliable, predictable systems that stand the test of time.
+				</p>
+			</div>
+		</section>
+
+
+		<!-- =================== SELECTED PROJECTS SECTION =================== -->
+		<section id="projects" class="page-section">
+			<h2 class="main-section-title">SELECTED PROJECTS</h2>
+
+			<div class="projects-grid">
+				<article class="project-card">
+					<header class="project-header">
+						<div class="project-title-group">
+							<h3>Swift Print</h3>
+							<p class="project-subtitle">Lightweight browser-to-printer bridge for local printing</p>
+						</div>
+						<span class="project-badge"><i class="fas fa-code-branch"></i> Open Source</span>
+					</header>
+
+					<p class="project-description">Swift Print is a lightweight open-source utility that enables web
+						applications to send print commands to local printers through a desktop bridge. It is designed
+						for receipts, labels, invoices, and ESC/POS printing workflows where browser-based applications
+						need reliable local printer integration.</p>
+
+					<div class="project-details">
+						<div>
+							<h4 class="project-detail-title">Key Highlights</h4>
+							<ul class="project-highlights">
+								<li>Lightweight simple browser-to-printer bridge tool</li>
+								<li>Provides local browser-to-desktop communication</li>
+								<li>Useful for ESC/POS and receipt-printing workflows</li>
+							</ul>
+						</div>
+
+						<div>
+							<h4 class="project-detail-title">Tech Stack</h4>
+							<div class="project-tech-list" aria-label="Swift Print tech stack">
+								<span class="project-tech">Go</span>
+								<span class="project-tech">Windows Printing APIs</span>
+								<span class="project-tech">Local HTTP API</span>
+								<span class="project-tech">ESC/POS</span>
+								<span class="project-tech">System Tray Utility</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="project-actions">
+						<a class="project-action" href="swift-print.html" target="_blank">
+							<i class="fas fa-arrow-up-right-from-square"></i> View Project Page
+						</a>
+						<a class="project-action" href="https://github.com/makhijahemant/swift-print/" target="_blank"
+							rel="noopener noreferrer">
+							<i class="fab fa-github"></i> View on GitHub
+						</a>
+					</div>
+				</article>
+			</div>
+		</section>
+
+
+		<!-- =================== EXPERIENCE SECTION =================== -->
+		<section id="experience" class="page-section">
+			<h2 class="main-section-title">EXPERIENCE</h2>
+
+			<div class="timeline" style="margin-top: 40px;">
+
+				<!-- Timeline Item 1 -->
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>SEP 2018</span>
+						<span>to</span>
+						<span>Present</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">SOFTWARE DEVELOPER</h2>
+						</div>
+						<h3 class="company-name">Bonrix Software Systems, Ahmedabad</h3>
+						<ul class="task-list">
+							<li><strong>Kiosk System:</strong> Designed and built an ESP32-based self-ordering kiosk
+								using LVGL, enabling dynamic QR generation (UPI Payments) and real-time advertisement
+								streaming within strict hardware limits (4MB storage, 8MB RAM).
+							</li>
+							<li><strong>Cloud App:</strong> Architected and deployed a multi-tenant SaaS Quotation
+								System with role-based access control (RBAC), ensuring secure data isolation and high
+								availability.
+							</li>
+							<li><strong>VOIP & Modem Integration:</strong> Engineered a Java-based VOIP - SIP automation
+								system integrating GSM modems to execute high-volume outbound calling and response
+								logging.
+							</li>
+							<li><strong>Process Automation:</strong> Developed browser automation frameworks using
+								Selenium and Chrome extensions, significantly reducing manual operational workload.
+							</li>
+							<li><strong>Computer Vision R&D:</strong> Led the research and deployment of an
+								<strong>Object Detection</strong> project using YOLO, focusing on model training and
+								performance tuning.
+							</li>
+							<li><strong>Biometric Attendance Architecture:</strong> Designed an end-to-end <strong>Face
+									Recognition Attendance System</strong>, managing the pipeline from edge detection to
+								backend API synchronization.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Timeline Item 2 -->
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Jun 2017</span>
+						<span>to</span>
+						<span>Present</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Freelance Software Developer</h2>
+						</div>
+						<ul class="task-list">
+
+							<li><strong>High-Volume Database Engineering:</strong> Managed and optimized a data platform
+								containing 350M+ records, reducing query execution time by 90% through advanced SQL
+								optimization, indexing strategies, and selecting appropriate database technologies
+								(MySQL and DuckDB) based on workload requirements.
+							</li>
+							<li><strong>ETL and Integration Pipeline:</strong> Built ETL pipelines integrating
+								Salesforce, Ontraport, and WooCommerce via REST APIs to enable centralized reporting and
+								business insights.
+							</li>
+							<li><strong>Custom ERP Development:</strong> Designed and delivered 10+ custom ERP,
+								accounting, and CRM desktop/LAN applications for mid-scale businesses.
+							</li>
+							<li><strong>Mobile Solutions:</strong> Developed a Java-based Android application for field
+								collection agents, featuring offline SQLite synchronization and socket programming.
+							</li>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Feb 2017</span>
+						<span>to</span>
+						<span>Jun 2017</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Full Stack Developer</h2>
+						</div>
+						<h3 class="company-name">WhitePanda, Incubated at IIT Gandhinagar</h3>
+						<ul class="task-list">
+							<li><strong>Platform Orchestration:</strong> Served as the primary architect for a content
+								marketplace, leading and mentoring a team of 5 developers while establishing coding
+								standards that reduced production bugs and improved overall code quality and
+								maintainability across the organization.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Oct 2016</span>
+						<span>to</span>
+						<span>Jan 2017</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Full Stack Developer</h2>
+						</div>
+						<h3 class="company-name">Cretif, Incubated at IIT Gandhinagar</h3>
+						<ul class="task-list">
+							<li> <strong>Code Optimization:</strong> Refactored a Node.js-based GPS tracking system
+								(SAFUS) to resolve critical memory leaks and eliminate code redundancy.
+							</li>
+							<li> <strong>Database Optimization:</strong> Optimized PostgreSQL queries and schema to
+								improve I/O performance, accelerate data retrieval, and minimize the storage footprint,
+								resulting in enhanced overall system performance.
+							</li>
+							<li> <strong>UI Enhancements:</strong> Integrated Google Roads APIs to provide
+								high-precision route plotting on Google Maps for fleet management.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Dec 2014</span>
+						<span>to</span>
+						<span>Jul 2016</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Programmer</h2>
+						</div>
+						<h3 class="company-name">Ahmedabad</h3>
+						<p style="margin-left: 50px; margin-bottom: 20px;">My day to day responsibilities were :</p>
+						<ul class="task-list">
+							<li> <strong>Academic Systems Engineering:</strong> Developed in-house desktop and web
+								applications using
+								Java, .NET and PHP (CodeIgniter) to manage high-volume exam data processing.
+							</li>
+							<li> <strong>Data Analysis:</strong> Utilized SQL and MS Excel for complex report generation
+								and large-scale
+								data manipulation during pre- and post-examination cycles.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Jan 2012</span>
+						<span>to</span>
+						<span>Dec 2014</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Full Stack Developer</h2>
+						</div>
+						<h3 class="company-name">Hope Technologies | Ahmedabad</h3>
+						<ul class="task-list">
+							<li><strong> Multi-Platform Delivery:</strong> Designed and deployed 10+ custom desktop
+								applications in
+								VB.NET and 3 PHP (CodeIgniter) websites with MySQL backends.
+							</li>
+							<li>Converted visual designs (PNG/PSD) into functional HTML/CSS/JS layouts.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Jan 2012</span>
+						<span>to</span>
+						<span>Mar 2014</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">Freelancer</h2>
+						</div>
+						<ul class="task-list">
+							<li>Developed 7 customized desktop applications in VB.Net</li>
+							<li>Designed website layouts from PNG, PSD to HTML, CSS, JS</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<!-- =================== EDUCATION SECTION =================== -->
+		<section id="education" class="page-section">
+			<h2 class="main-section-title">EDUCATION</h2>
+
+			<div class="timeline edu-timeline" style="margin-top: 40px;">
+
+				<!-- Edu Item 1 -->
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>May 2013</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">BE (Computer Engineering)</h2>
+						</div>
+						<h3 class="company-name">GTU, Ahmedabad</h3>
+					</div>
+				</div>
+
+				<!-- Edu Item 2 -->
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Mar 2009</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">HSC</h2>
+						</div>
+						<h3 class="company-name">Gujarat Board</h3>
+					</div>
+				</div>
+
+				<!-- Edu Item 3 -->
+				<div class="timeline-item">
+					<div class="timeline-date">
+						<span>Mar 2007</span>
+					</div>
+					<div class="timeline-divider"></div>
+					<div class="timeline-content">
+						<div class="accent-heading-wrapper">
+							<div class="accent-shape"></div>
+							<h2 class="section-title">SSC</h2>
+						</div>
+						<h3 class="company-name">Gujarat Board</h3>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<!-- =================== BEYOND ENGINEERING SECTION =================== -->
+		<section id="beyond-engineering" class="page-section">
+			<h2 class="main-section-title">BEYOND ENGINEERING</h2>
+
+			<div class="philosophy-card beyond-card">
+				<div class="beyond-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+				<div>
+					<p class="philosophy-text">I believe creativity and engineering complement each other. Outside of
+						software architecture and development, I explore video editing, motion graphics, and graphic
+						design,
+						creative disciplines that help sharpen communication, visual thinking, and attention to detail.
+					</p>
+
+					<a target="_blank" href="https://www.behance.net/hemant-makhija" class="contact-method"
+						data-tooltip="Open Behance profile" aria-label="Open Behance profile">
+						<div class="contact-method-icon"><i class="fab fa-behance"></i></div>
+						<span class="contact-method-label">Behance</span>
+					</a>
+				</div>
+
+
+			</div>
+		</section>
+
+
+		<!-- =================== CONTACT SECTION =================== -->
+		<section id="contact" class="page-section">
+			<h2 class="main-section-title">CONTACT</h2>
+
+			<div class="contact-layout">
+				<div class="contact-intro">
+					<div class="contact-intro-content">
+						<div class="contact-kicker"><i class="fas fa-paper-plane"></i> Start a thoughtful conversation
+						</div>
+						<h3>Have an idea, a challenge, or just want to compare notes? I would be happy to connect.</h3>
+					</div>
+				</div>
+
+				<div class="contact-actions">
+
+					<a target="_blank" href="https://www.linkedin.com/in/hemant-makhija" class="contact-method"
+						data-tooltip="Open LinkedIn profile" aria-label="Open LinkedIn profile">
+						<div class="contact-method-icon"><i class="fab fa-linkedin-in"></i></div>
+						<span class="contact-method-label">LinkedIn</span>
+					</a>
+
+					<a target="_blank" href="https://github.com/makhijahemant" class="contact-method"
+						data-tooltip="Open GitHub profile" aria-label="Open GitHub profile">
+						<div class="contact-method-icon"><i class="fab fa-github"></i></div>
+						<span class="contact-method-label">GitHub</span>
+					</a>
+
+					<a href="#" class="contact-method" onclick="return revealContact(this, 'email')"
+						data-tooltip="Reveal email address" aria-label="Reveal email address">
+						<div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
+						<span class="contact-method-label">Email</span>
+					</a>
+
+					<a target="_blank" href="https://drive.google.com/file/d/1QHOtJWpVBBFjIU0IBXYgpUKaQARAAL7f/view"
+						class="contact-method" data-tooltip="Resume" aria-label="Resume">
+						<div class="contact-method-icon"><i class="fas fa-file-arrow-down"></i></div>
+						<span class="contact-method-label">Resume</span>
+					</a>
+
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<button class="back-to-top" type="button" aria-label="Back to top">
+		<i class="fas fa-arrow-up"></i>
+	</button>
+
+	<!-- JS for Navigation (Scroll Spy) -->
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const sidebar = document.querySelector('.sidebar');
+			const menuToggle = document.querySelector('.mobile-menu-toggle');
+			const drawerOverlay = document.querySelector('.drawer-overlay');
+			const backToTop = document.querySelector('.back-to-top');
+			const navItems = document.querySelectorAll('.nav li');
+			const sections = document.querySelectorAll('.page-section');
+			const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+			const setMenuOpen = (isOpen) => {
+				if (!sidebar || !menuToggle) return;
+				const menuIcon = menuToggle.querySelector('i');
+
+				sidebar.classList.toggle('menu-open', isOpen);
+				document.body.classList.toggle('drawer-open', isOpen);
+				menuToggle.setAttribute('aria-expanded', String(isOpen));
+
+				if (menuIcon) {
+					menuIcon.classList.toggle('fa-bars', !isOpen);
+					menuIcon.classList.toggle('fa-xmark', isOpen);
+				}
+
+				if (drawerOverlay) {
+					drawerOverlay.hidden = !isOpen;
+				}
+			};
+
+			if (menuToggle && sidebar) {
+				menuToggle.addEventListener('click', () => {
+					setMenuOpen(!sidebar.classList.contains('menu-open'));
+				});
+			}
+
+			if (drawerOverlay) {
+				drawerOverlay.addEventListener('click', () => setMenuOpen(false));
+			}
+
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape') setMenuOpen(false);
+			});
+
+			if (backToTop) {
+				const updateBackToTop = () => {
+					backToTop.classList.toggle('visible', window.scrollY > 420);
+				};
+
+				backToTop.addEventListener('click', () => {
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+				});
+
+				updateBackToTop();
+				window.addEventListener('scroll', updateBackToTop, { passive: true });
+			}
+
+			// 1. Click to scroll
+			navItems.forEach(item => {
+				item.addEventListener('click', () => {
+					const targetId = item.getAttribute('data-target');
+					const targetSection = document.getElementById(targetId);
+					if (targetSection) {
+						const headerOffset = mobileQuery.matches ? 64 : 0;
+						window.scrollTo({
+							top: Math.max(targetSection.offsetTop - headerOffset, 0),
+							behavior: 'smooth'
+						});
+					}
+
+					setMenuOpen(false);
+				});
+			});
+
+			// 2. Intersection Observer to highlight active nav
+			const observerOptions = {
+				root: null,
+				rootMargin: '-20% 0px -60% 0px', // Trigger when section is roughly in the top part of viewport
+				threshold: 0
+			};
+
+			const observerCallback = (entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						// Remove active class from all
+						navItems.forEach(nav => nav.classList.remove('active'));
+
+						// Find matching nav item and add active class
+						const activeId = entry.target.id;
+						const activeNavItem = document.querySelector(`.nav li[data-target="${activeId}"]`);
+						if (activeNavItem) {
+							activeNavItem.classList.add('active');
+						}
+					}
+				});
+			};
+
+			const observer = new IntersectionObserver(observerCallback, observerOptions);
+			sections.forEach(sec => observer.observe(sec));
+			const tooltip = document.createElement('div');
+			let tooltipTarget = null;
+			tooltip.className = 'custom-tooltip';
+			document.body.appendChild(tooltip);
+
+			const positionTooltip = () => {
+				if (!tooltipTarget) return;
+				const rect = tooltipTarget.getBoundingClientRect();
+				tooltip.style.left = `${rect.left + rect.width / 2}px`;
+				tooltip.style.top = `${rect.top - 5}px`;
+			};
+
+			const showTooltip = (target) => {
+				tooltipTarget = target;
+				tooltip.textContent = target.dataset.tooltip;
+				positionTooltip();
+				tooltip.classList.add('visible');
+			};
+
+			const hideTooltip = () => {
+				tooltipTarget = null;
+				tooltip.classList.remove('visible');
+			};
+
+			document.addEventListener('pointerover', (event) => {
+				const target = event.target.closest('[data-tooltip]');
+				if (target) showTooltip(target);
+			});
+
+			document.addEventListener('pointerout', (event) => {
+				if (tooltipTarget && !tooltipTarget.contains(event.relatedTarget)) hideTooltip();
+			});
+
+			document.addEventListener('focusin', (event) => {
+				const target = event.target.closest('[data-tooltip]');
+				if (target) showTooltip(target);
+			});
+
+			document.addEventListener('focusout', hideTooltip);
+			window.addEventListener('scroll', positionTooltip, { passive: true });
+			window.addEventListener('resize', positionTooltip);
+		});
+
+		// Contact Obfuscation Logic
+		const contacts = {
+			'email': 'bWptYWtoaWphQHlhaG9vLmNvbQ==',
+			'tel': ''
+		};
+
+		function revealContact(el, type) {
+			el.preventDefault && el.preventDefault();
+			const decoded = atob(contacts[type]);
+			const prefix = type === 'email' ? 'mailto:' : 'tel:';
+			const label = type === 'email' ? 'Email' : 'Phone';
+			const icon = type === 'email' ? 'fa-envelope' : 'fa-phone-alt';
+			const action = type === 'email' ? 'Send Email' : 'Call';
+
+			document.getElementById('modal-icon-el').className = 'fas ' + icon;
+			document.getElementById('modal-label').textContent = label;
+			document.getElementById('modal-value').textContent = decoded;
+			const link = document.getElementById('modal-link');
+			link.href = prefix + decoded;
+			link.textContent = action;
+			document.getElementById('copied-hint').style.display = 'none';
+			document.getElementById('contact-modal-overlay').classList.add('active');
+			return false;
+		}
+
+		function closeContactModal(event) {
+			if (!event || event.target === document.getElementById('contact-modal-overlay')) {
+				document.getElementById('contact-modal-overlay').classList.remove('active');
+			}
+		}
+
+		function copyContactValue() {
+			const val = document.getElementById('modal-value').textContent;
+			navigator.clipboard.writeText(val).then(() => {
+				const hint = document.getElementById('copied-hint');
+				hint.style.display = 'block';
+				setTimeout(() => hint.style.display = 'none', 2500);
+			});
+		}
+
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') closeContactModal();
+		});
+	</script>
+</body>
+
+</html>
